@@ -66,20 +66,69 @@ link lookup(link root,int data){
     if(root->info>data){
         return lookup(root->g,data);
     }
-
-
 }
+
+link lookup_iter(link root,int data){
+    while(root != NULL){
+        if(root->info==data){
+            return root;
+        }
+        if(root->info<data){
+            root=root->d;
+        }
+        else{
+            root=root->g;
+        }
+    }
+    return NULL;
+}
+
+int max(int a,int b){
+    if(a>b) return a;
+    else return b;
+}
+
+int nb_noeud(link root){
+    if(root == NULL){
+        return 0;
+    }
+    else{
+        return 1+nb_noeud(root->g)+nb_noeud(root->d);
+    }
+}
+
+int hauteur(link root){
+    if(root == NULL){
+        return -1;
+    }
+    else{
+        return 1+max(hauteur(root->g),hauteur(root->d));
+    }
+}
+
+
 
 int main(){
     int x;
     link racine=NULL;
-    while(scanf("%d",&x)!=EOF){
-        racine=insertion(racine,x);
-    }
+    racine=insertion(racine,1);
+    racine=insertion(racine,2);
+    racine=insertion(racine,3);
+    racine=insertion(racine,6);
+    racine=insertion(racine,7);
+    racine=insertion(racine,5);
+    racine=insertion(racine,54);
+    racine=insertion(racine,11);
+    racine=insertion(racine,45);
+    racine=insertion(racine,64);
+    racine=insertion(racine,17);
+    
 
     imprimer_arbre(racine,0);
 
-    printf("T %d",lookup(racine,64)->info);
+    printf("T %d \n",lookup_iter(racine,3)->info);
+    printf("nb_noeud %d \n",nb_noeud(racine));
+    printf("hauteur:%d \n",hauteur(racine));
     return 0;
 }
 
