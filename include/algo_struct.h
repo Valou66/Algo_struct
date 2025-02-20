@@ -58,6 +58,10 @@ int hauteur(link_bin root);
     return la hauteur de l'arbre
 */
 
+
+link_bin arbre_pe(int n);
+//arbre binaire parfaitement equilibré
+
 link_bin bstPE(int t[],int debut ,int fin);
 /*
     construire un bstPEde t[debut..fin]
@@ -85,9 +89,12 @@ typedef struct Noeud_gen{
 typedef Noeud_gen* link_gen;
 
 Noeud_gen * creer_noeud(int info);
-void saisie(Noeud_gen fils[]);
-void imprimer_enfants(Noeud_gen fils[]);
-void bfs(int i,Noeud_gen fils[]);
+void saisie(Noeud_gen *fils[],int n);
+void imprimer_enfants(Noeud_gen *fils[],int n);
+void bfs(int i,Noeud_gen *fils[]);
+void prefixe(int i,Noeud_gen *fils[]);
+void postfixe(int i,Noeud_gen *fils[]);
+void infixe(int i,Noeud_gen *fils[]);
 
 //--------------------
 //-------File---------
@@ -106,5 +113,6 @@ int file_vide(File *f);
 
 void afficher_file(File *f);
 
-
+//Autre fonction
+int compare(int *a,int *b);
 #endif //ALGO_STRUCT_H

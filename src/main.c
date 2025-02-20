@@ -1,7 +1,5 @@
 #include "../include/algo_struct.h"
-
-int main(){
-
+void tb_papa(){
     printf("TABLEAU DE PAPA\n");
 
     int n;
@@ -22,8 +20,9 @@ int main(){
         printf("%d ",feuille[i]);
     }
     printf("\n");
+}
 
-
+void arbre_binaire(){
     printf("ARBRE BINAIRE \n");
     link_bin racine=NULL;
     racine=insertion_bin(racine,1);
@@ -44,6 +43,69 @@ int main(){
     printf("T %d \n",lookup_iter(racine,3)->info);
     printf("nb_noeud %d \n",nb_noeud(racine));
     printf("hauteur:%d \n",hauteur(racine));
+}
+
+void td1_ex4(){
+
+    Noeud_gen *fils[15];
+    int n=9;
+    saisie(fils,n);
+    imprimer_enfants(fils,n);
+    printf("\n");
+    prefixe(0,fils);
+    printf("\n");
+    printf("\n");
+    infixe(0,fils);
+    printf("\n");
+    printf("\n");
+    postfixe(0,fils);
+}
+
+void td1_ex7(){
+    int n;
+    link_bin racine;
+    printf("lecture de n ");
+    scanf("%d",&n);
+    racine=arbre_pe(n);
+
+    printf("\n");
+    imprimer_arbre_bin(racine,0);
+}
+
+void td1_ex7bis(){
+    int n; // le nombre d'entier
+    printf("entre n \n");
+    scanf("%d",&n);
+
+    int t[n];
+    //saisie du tab
+    for(int i=0;i<n;i++){
+        printf("entre entier numero %d\n",i+1);
+        scanf("%d",&t[i]);
+    }
+    qsort(t,n,sizeof(int),compare);
+    link_bin racine=bstPE(t,0,n-1);
+
+    imprimer_arbre_bin(racine,0);
+
+}
+
+void td1_ex8(){
+    int x;
+    link_bin racine=NULL;
+
+    printf("entre\n");
+    while(scanf("%d",&x)!=EOF){
+        racine=insertion_bin(racine,x);
+    }
+
+    imprimer_arbre_bin(racine,0);
+}
+
+int main(){
+    td1_ex8();
+
+    
 
     
 }

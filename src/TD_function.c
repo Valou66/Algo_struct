@@ -116,6 +116,33 @@ int hauteur(link_bin root){
     }
 }
 
+link_bin arbre_pe(int n){
+    int ng,nd; //ng= nombre de noeud de arbre gauche / nombre de noeud de arbre droit
+    link_bin t;
+    if(n==0){ //la base
+        return NULL;
+    }
+    ng=n/2;
+    nd=n-ng-1;
+
+    // lire un entier x
+    int x;
+    printf("entre x entier ");
+    scanf("%d ",&x);
+    //creer un noeud pour stocker;
+    t=(link_bin)malloc(sizeof(Noeud_bin));
+    /*
+          t
+        [  ] --> t -> [info]
+        [  ]          [g| d]
+    */
+   t->info=x;
+   t->g=arbre_pe(ng);
+   t->d=arbre_pe(nd);
+
+   return t;
+}
+
 //--------------------
 //------Tableau-------
 //------de papa-------
@@ -181,6 +208,89 @@ int hauteur_arbre(int feuille[],int papa[],int *nf){
 //------General-------
 //--------------------
 
+Noeud_gen * creer_noeud(int info){
+    Noeud_gen *temp=(Noeud_gen*)malloc(sizeof(Noeud_gen));//effet = temp est un pointeur vers le Noeud
+    temp->info=info;
+    temp->suivant=NULL;
+    return temp;
+}
+
+void saisie(Noeud_gen *fils[],int n){
+    Noeud_gen *t;
+    Noeud_gen *temp;
+    //initialisation de tableau fils
+
+    for(int i=0;i<n;i++){
+        fils[i]=NULL;
+    }
+    //saisie des enfant de chaque noeud
+    int ne,e; //nombre d'enfant et enfant
+    for(int i=0;i<n;i++){
+        printf("entre nb enfant de %d \n",i);
+        scanf("%d",&ne);
+        for(int j=0;j<ne;j++){
+            //les enfants sont entrès dans l'ordre inverse
+            printf("entres l-enfant %d \n",j+1);
+            scanf("%d",&e);
+            //creer un noeud pour stocker e
+            temp=creer_noeud(e);
+            //attacher terme a la tête de fils[j]
+            temp->suivant=fils[i];
+            fils[i]=temp;
+        }
+    }
+}
+
+void imprimer_enfants(Noeud_gen *fils[],int n){
+    Noeud_gen *temp;
+    for(int i=0;i<n;i++){
+        temp=fils[i];
+        if(temp==NULL){
+            printf("pas d'enfant de %d \n",i);
+        }
+        else{
+            for(;temp!=NULL;temp=temp->suivant){
+                printf("%d  ",temp->info);
+            }
+            printf("\n");
+        }
+    }
+}
+
+void prefixe(int i,Noeud_gen *fils[]){
+    printf("%d ",i);
+    //parcourir la liste de fils de i
+    //c'est a dire fils[i]
+    for(Noeud_gen *temp=fils[i];temp!=NULL;temp=temp->suivant){
+        prefixe(temp->info,fils);
+    }
+}
+
+void postfixe(int i,Noeud_gen *fils[]){
+    //parcourir la liste de fils de i
+    //c'est a dire fils[i]
+    for(Noeud_gen *temp=fils[i];temp!=NULL;temp=temp->suivant){
+        postfixe(temp->info,fils);
+    }
+    printf("%d ",i);
+}
+
+void infixe(int i,Noeud_gen *fils[]){
+    //parcour infixe de l'arbre de racine i
+    if(fils[i]==NULL){
+        printf("%d ",i);
+    }
+    int j=0;
+    for(Noeud_gen *temp=fils[i];temp!=NULL;temp=temp->suivant){
+        if(j==1){
+            printf("%d ",i);
+        }
+        infixe(temp->info,fils);
+        j++;
+    }
+    
+}
+
 //--------------------
 //-------File---------
 //--------------------
@@ -228,4 +338,9 @@ void afficher_file(File *f){
         aff=aff->next;
     }
     printf("\n");
+}
+
+//autre fonction
+int compare(int *a,int *b){
+    return *a - *b;
 }
