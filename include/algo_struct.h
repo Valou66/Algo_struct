@@ -64,8 +64,13 @@ link_bin arbre_pe(int n);
 
 link_bin bstPE(int t[],int debut ,int fin);
 /*
-    construire un bstPEde t[debut..fin]
+    construire un bstPE de t[debut..fin]
 */
+
+link_bin find_max(link_bin t);
+//recherche d'un entier maximum dans un arbre binaire de recherche
+
+link_bin supp(link_bin root,int x);
 
 //--------------------
 //------Tableau-------

@@ -143,6 +143,54 @@ link_bin arbre_pe(int n){
    return t;
 }
 
+link_bin find_max(link_bin t){
+    //recherche l'element maximum dans un arbre binaire de recherche
+    link_bin temp=t;
+
+    if(t!=NULL){
+        while(temp->d != NULL){
+            temp=temp->d;
+        }
+        return temp;
+    }
+    else{
+        return NULL;
+    }
+}
+
+link_bin supp(link_bin root,int x){
+    if(root == NULL){
+        return NULL;
+    }
+
+    if(x<root->info){
+        //recursion dans l'arbre gauche
+        return supp(root->g,x);
+    }
+
+    else if(x>root->info){
+        //recursion dans l'arbre droit
+        return supp(root->d,x);
+    }
+
+    else{
+        // on a trouver le bon noeud
+        if(root->g == NULL){
+            link_bin temp=root->d;
+            free(root);
+            return temp;
+        }
+        else if(root->d == NULL){
+            link_bin temp=root->g;
+            free(root);
+            return temp;
+        }
+        
+
+
+    }
+}
+
 //--------------------
 //------Tableau-------
 //------de papa-------

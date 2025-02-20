@@ -24,6 +24,7 @@ void tb_papa(){
 
 void arbre_binaire(){
     printf("ARBRE BINAIRE \n");
+    printf("ex 2 ,3,4,5 \n");
     link_bin racine=NULL;
     racine=insertion_bin(racine,1);
     racine=insertion_bin(racine,2);
@@ -40,6 +41,7 @@ void arbre_binaire(){
 
     imprimer_arbre_bin(racine,0);
 
+    printf("T %d \n",lookup_rec(racine,3)->info);
     printf("T %d \n",lookup_iter(racine,3)->info);
     printf("nb_noeud %d \n",nb_noeud(racine));
     printf("hauteur:%d \n",hauteur(racine));
@@ -102,8 +104,36 @@ void td1_ex8(){
     imprimer_arbre_bin(racine,0);
 }
 
+void td2_ex5bis(){
+    link_bin racine=NULL;
+
+    printf("entre\n");
+    
+    racine =insertion_bin(racine,8);
+    racine =insertion_bin(racine,6);
+    racine =insertion_bin(racine,15);
+    racine =insertion_bin(racine,4);
+    racine =insertion_bin(racine,7);
+    racine =insertion_bin(racine,14);
+    racine =insertion_bin(racine,17);
+    racine =insertion_bin(racine,2);
+    racine =insertion_bin(racine,5);
+    racine =insertion_bin(racine,10);
+    racine =insertion_bin(racine,16);
+    racine =insertion_bin(racine,18);
+    racine =insertion_bin(racine,1);
+    racine =insertion_bin(racine,3);
+    racine =insertion_bin(racine,9);
+    racine =insertion_bin(racine,12);
+    racine =insertion_bin(racine,11);
+    racine =insertion_bin(racine,13);
+
+    imprimer_arbre_bin(racine,0);
+    printf("\nmax=%d \n",find_max(racine)->info);
+}
+
 int main(){
-    td1_ex8();
+    td2_ex5bis();
 
     
 
