@@ -70,7 +70,7 @@ link_bin bstPE(int t[],int debut ,int fin);
 link_bin find_max(link_bin t);
 //recherche d'un entier maximum dans un arbre binaire de recherche
 
-link_bin supp(link_bin root,int x);
+link_bin supp_rec(link_bin root,int x);
 
 //--------------------
 //------Tableau-------

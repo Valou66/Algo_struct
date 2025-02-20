@@ -158,19 +158,19 @@ link_bin find_max(link_bin t){
     }
 }
 
-link_bin supp(link_bin root,int x){
+link_bin supp_rec(link_bin root,int x){
     if(root == NULL){
         return NULL;
     }
 
     if(x<root->info){
         //recursion dans l'arbre gauche
-        return supp(root->g,x);
+        return supp_rec(root->g,x);
     }
 
     else if(x>root->info){
         //recursion dans l'arbre droit
-        return supp(root->d,x);
+        return supp_rec(root->d,x);
     }
 
     else{
@@ -180,15 +180,29 @@ link_bin supp(link_bin root,int x){
             free(root);
             return temp;
         }
+
         else if(root->d == NULL){
             link_bin temp=root->g;
             free(root);
             return temp;
         }
-        
 
+        else{
+            //le noeud a 2 enfant
 
+            link_bin temp=find_max(root->g);
+            //temp pointe vers le noeud maximum de l'arbre gauche de root
+
+            root->info=temp->info;
+            /*
+            copie le contenue de temp dans root
+            Notons que temps a au moins enfants ce cas est déjà considéré
+            */
+
+            return supp_rec(root->d,temp->info);
+        }
     }
+    return root;
 }
 
 //--------------------
