@@ -196,7 +196,7 @@ link_bin supp_rec(link_bin root,int x){
                 Notons que temps a au moins enfants ce cas est déjà considéré
                 */
 
-                return supp_rec(root->g,temp->info);
+                root->g= supp_rec(root->g,temp->info);
             }
 
             return root;

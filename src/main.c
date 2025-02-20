@@ -138,7 +138,7 @@ void td2_ex5bis(){
     printf("AVANT \n");
     imprimer_arbre_bin(racine,0);
 
-    racine=supp_rec(racine,60);
+    racine=supp_rec(racine,30);
     
     printf("APRES\n");
     imprimer_arbre_bin(racine,0);
