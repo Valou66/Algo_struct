@@ -2,17 +2,17 @@
 
 int main(){
     link_bin racine=NULL;
-    racine=insertion(racine,1);
-    racine=insertion(racine,2);
-    racine=insertion(racine,3);
-    racine=insertion(racine,6);
-    racine=insertion(racine,7);
-    racine=insertion(racine,5);
-    racine=insertion(racine,54);
-    racine=insertion(racine,11);
-    racine=insertion(racine,45);
-    racine=insertion(racine,64);
-    racine=insertion(racine,17);
+    racine=insertion_bin(racine,1);
+    racine=insertion_bin(racine,2);
+    racine=insertion_bin(racine,3);
+    racine=insertion_bin(racine,6);
+    racine=insertion_bin(racine,7);
+    racine=insertion_bin(racine,5);
+    racine=insertion_bin(racine,54);
+    racine=insertion_bin(racine,11);
+    racine=insertion_bin(racine,45);
+    racine=insertion_bin(racine,64);
+    racine=insertion_bin(racine,17);
     
 
     imprimer_arbre_bin(racine,0);

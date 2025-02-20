@@ -26,7 +26,7 @@ void imprimer_arbre_bin(link_bin r,int niveau);
     afficher l'arbre binaire
 */
 
-link_bin insertion(link_bin racine,int info);
+link_bin insertion_bin(link_bin racine,int info);
 /*
     insert un noeud dans l'arbre
 */

@@ -26,16 +26,16 @@ void imprimer_arbre_bin(link_bin r,int niveau){
     }
 }
 
-link_bin insertion(link_bin racine,int info){
+link_bin insertion_bin(link_bin racine,int info){
     if(racine==NULL){
         racine=creerNoeud_bin(info);
     }
     else{
         if(info < racine->info){
-            racine->g=insertion(racine->g,info);
+            racine->g=insertion_bin(racine->g,info);
         }
         else if(info>racine->info){
-            racine->d=insertion(racine->d,info);
+            racine->d=insertion_bin(racine->d,info);
         } // les entier egaux inserer
     }
     return racine;
