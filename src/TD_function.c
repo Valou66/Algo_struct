@@ -117,6 +117,66 @@ int hauteur(link_bin root){
 }
 
 //--------------------
+//------Tableau-------
+//------de papa-------
+//--------------------
+
+void saisie_papa(int n,int papa[]){
+    for(int i=0;i<n;i++){
+        printf("entre papa de %d \n",i);
+        scanf("%d",&papa[i]);
+    }
+}
+
+int feuilles_arbre(int n,int papa[],int feuille[],int *nf){
+    *nf=0; //initialisation de nf
+    int est_feuille;
+    int j;
+    for(int i=0;i<n;i++){
+        //tester si i est une feuille 
+        est_feuille=1;
+        j=0;
+        while(j<n && est_feuille==1){
+            //tester si i est present
+            if(papa[j]==i){
+                est_feuille=0;
+            }
+            j++;
+        }
+        if(est_feuille==1){
+            feuille[*nf]=i;
+            (*nf)=(*nf)+1;
+        }
+    }
+    return *nf;
+}
+
+int monter_arbre(int f,int papa[]){
+    //f une feuille  monter de f jusqu'a racine
+    int h=0;
+    while(f!=0){
+        f=papa[f];
+        h++;
+    }
+    return h;
+}
+
+int hauteur_arbre(int feuille[],int papa[],int *nf){
+    //utilisions le tableau feuille
+    int h=0;
+    int p;
+    // parcourir le tableau feuille
+    for(int i=0;i<*nf;i++){
+        p=monter_arbre(feuille[i],papa);
+        if(p>h){
+            h=p;
+        }
+    }
+    return h;
+}
+
+
+//--------------------
 //-------Arbre--------
 //------General-------
 //--------------------

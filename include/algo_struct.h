@@ -63,6 +63,15 @@ link_bin bstPE(int t[],int debut ,int fin);
     construire un bstPEde t[debut..fin]
 */
 
+//--------------------
+//------Tableau-------
+//------de papa-------
+//--------------------
+
+void saisie_papa(int n,int papa[]);
+int feuilles_arbre(int n,int papa[],int feuille[],int *nf);
+int monter_arbre(int f,int papa[]);
+int hauteur_arbre(int feuille[],int papa[],int *nf);
 
 //--------------------
 //-------Arbre--------
