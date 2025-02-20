@@ -7,6 +7,9 @@ all : TD_function.o main.o
 	${CC} ${CFLAGS} -o ${EXEC} TD_function.o main.o
 	./$(EXEC)
 
+all_debug : TD_function.o main.o
+	${CC} ${CFLAGS} -o ${EXEC} TD_function.o main.o
+	./$(EXEC)
 
 TD_function.o : ${SRC_DIR}TD_function.c
 	${CC} -c ${SRC_DIR}TD_function.c

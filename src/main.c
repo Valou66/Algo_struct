@@ -125,10 +125,10 @@ void td2_ex5bis(){
     // racine =insertion_bin(racine,12);
     // racine =insertion_bin(racine,11);
     // racine =insertion_bin(racine,13);
-    
+
     racine=creerNoeud_bin(50);
     racine->g=creerNoeud_bin(40);
-    racine->d=creer_noeud(60);
+    racine->d=creerNoeud_bin(60);
     racine->g->g=creerNoeud_bin(30);
     racine->g->g->d=creerNoeud_bin(35);
     racine->d->g=creerNoeud_bin(55);

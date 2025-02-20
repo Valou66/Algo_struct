@@ -159,52 +159,55 @@ link_bin find_max(link_bin t){
 }
 
 link_bin supp_rec(link_bin root,int x){
-    if(root == NULL){
-        return NULL;
-    }
-
-    if(x<root->info){
-        //recursion dans l'arbre gauche
-        return supp_rec(root->g,x);
-    }
-
-    else if(x>root->info){
-        //recursion dans l'arbre droit
-        return supp_rec(root->d,x);
-    }
-
-    else{
-        // on a trouver le bon noeud
-        if(root->g == NULL){
-            link_bin temp=root->d;
-            free(root);
-            return temp;
+    if(root != NULL){
+        if(x<root->info){
+            //recursion dans l'arbre gauche
+            root->g=supp_rec(root->g,x);
         }
 
-        else if(root->d == NULL){
-            link_bin temp=root->g;
-            free(root);
-            return temp;
+        else if(x>root->info){
+            //recursion dans l'arbre droit
+            root->d=supp_rec(root->d,x);
         }
 
         else{
-            //le noeud a 2 enfant
+            // on a trouver le bon noeud
+            if(root->g == NULL){
+                link_bin temp=root->d;
+                free(root);
+                return temp;
+            }
 
-            link_bin temp=find_max(root->g);
-            //temp pointe vers le noeud maximum de l'arbre gauche de root
+            else if(root->d == NULL){
+                link_bin temp=root->g;
+                free(root);
+                return temp;
+            }
 
-            root->info=temp->info;
-            /*
-            copie le contenue de temp dans root
-            Notons que temps a au moins enfants ce cas est déjà considéré
-            */
+            else{
+                //le noeud a 2 enfant
 
-            return supp_rec(root->d,temp->info);
+                link_bin temp=find_max(root->g);
+                //temp pointe vers le noeud maximum de l'arbre gauche de root
+
+                root->info=temp->info;
+                /*
+                copie le contenue de temp dans root
+                Notons que temps a au moins enfants ce cas est déjà considéré
+                */
+
+                return supp_rec(root->g,temp->info);
+            }
+
+            return root;
         }
     }
-    return root;
-}
+    else{
+        return NULL;
+    }
 
+    
+}
 //--------------------
 //------Tableau-------
 //------de papa-------

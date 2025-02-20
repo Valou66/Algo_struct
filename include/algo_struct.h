@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 //--------------------
 //-------Arbre--------
@@ -71,6 +72,8 @@ link_bin find_max(link_bin t);
 //recherche d'un entier maximum dans un arbre binaire de recherche
 
 link_bin supp_rec(link_bin root,int x);
+
+link_bin supp_iter(link_bin root,int x);
 
 //--------------------
 //------Tableau-------
