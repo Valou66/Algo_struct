@@ -44,7 +44,7 @@ link insertion(link racine,int info){
     return racine;
 }
 
-link lookup(link root,int data){
+link lookup_rec(link root,int data){
     /*
     lookup retourne un pointeur d'un noeud 
     contenant x s'il exister, NULL sinon
