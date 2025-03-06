@@ -75,6 +75,22 @@ link_bin supp_rec(link_bin root,int x);
 
 link_bin supp_iter(link_bin root,int x);
 
+link_bin tournoi(int t[],int g,int d);
+
+void prefixe_bin_rec(link_bin root);
+void infixe_bin_rec(link_bin root);
+void postfixe_bin_rec(link_bin root);
+
+void prefixe_bin_iter(link_bin root);
+void infixe_bin_iter(link_bin root);
+void postfixe_bin_iter(link_bin root);
+
+
+/*
+    transforme le tab t[g..d]
+    en un tournoi
+*/
+
 //--------------------
 //------Tableau-------
 //------de papa-------
@@ -120,6 +136,25 @@ File* defiler(File *f ,int *r);
 int file_vide(File *f);
 
 void afficher_file(File *f);
+
+//--------------------
+//-------Pile---------
+//--------------------
+
+typedef struct Pile{
+    link_bin t[2048];
+    int head;
+}Pile;
+
+void init_pile(Pile *p);
+
+void empiler(Pile *p,link_bin e);
+
+link_bin depiler(Pile *p);
+
+int pile_vide(Pile *p);
+
+
 
 //Autre fonction
 int compare(int *a,int *b);

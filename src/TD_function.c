@@ -205,8 +205,114 @@ link_bin supp_rec(link_bin root,int x){
     else{
         return NULL;
     }
+}
 
+link_bin tournoi(int t[],int g,int d){
+    int m =(g+d)/2;
+    link_bin p=creerNoeud_bin(t[m]);
+    if(g==d){
+        return p; // la base
+    }
+    p->g=tournoi(t,g,m);
+    p->d=tournoi(t,m+1,d);
+    int u = p->g->info;
+    int v = p->d->info;
+    if(u>v){
+        p->info=u;
+    }
+    else{
+        p->info=v;
+    }
+    return p;
+}
+
+void prefixe_bin_rec(link_bin root){
+    if(root!=NULL){
+        printf("%d ",root->info);
+        prefixe_bin_rec(root->g);
+        prefixe_bin_rec(root->d);
+    }
+}
+
+void prefixe_bin_iter(link_bin root){
+    if(root == NULL) return;
+    Pile p;
+    link_bin courant;
+    init_pile(&p);
+    courant=root;
+    if(courant!=NULL){
+        empiler(&p,courant);
+    }
     
+    while(!pile_vide(&p)){
+        courant=depiler(&p);
+
+        printf("%d ",courant->info);
+        if(courant->d!=NULL){
+            empiler(&p,courant->d);
+        }
+        if(courant->g!=NULL){
+            empiler(&p,courant->g);
+        }
+    }
+}
+
+void infixe_bin_rec(link_bin root){
+    if(root!=NULL){
+        infixe_bin_rec(root->g);
+        printf("%d ",root->info);
+        infixe_bin_rec(root->d);
+    }
+}
+
+void infixe_bin_iter(link_bin root){
+    if(root == NULL) return;
+    Pile p;
+    link_bin courant=root;
+    init_pile(&p);
+
+    while(courant!=NULL || !pile_vide(&p)){
+        while(courant!=NULL){
+            empiler(&p,courant);
+            courant=courant->g;
+        }
+        courant=depiler(&p);
+        printf("%d ",courant->info);
+        courant=courant->d;
+    }
+    
+    
+    
+}
+
+void postfixe_bin_rec(link_bin root){
+    if(root!=NULL){
+        postfixe_bin_rec(root->g);
+        postfixe_bin_rec(root->d);
+        printf("%d ",root->info);
+    }
+}
+
+void postfixe_bin_iter(link_bin root){
+    if(root == NULL) return;
+    Pile p;
+    link_bin courant;
+    init_pile(&p);
+    courant=root;
+    if(courant!=NULL){
+        empiler(&p,courant);
+    }
+    
+    while(!pile_vide(&p)){
+        courant=depiler(&p);
+        if(courant->d!=NULL){
+            empiler(&p,courant->d);
+        }
+        if(courant->g!=NULL){
+            empiler(&p,courant->g);
+        }
+        printf("%d ",courant->info);
+    }
 }
 //--------------------
 //------Tableau-------
@@ -403,6 +509,28 @@ void afficher_file(File *f){
         aff=aff->next;
     }
     printf("\n");
+}
+
+//--------------------
+//-------Pile---------
+//--------------------
+
+void init_pile(Pile *p){
+    p->head=0;
+}
+
+void empiler(Pile *p,link_bin e){
+    p->t[p->head]=e;
+    p->head++;
+}
+
+link_bin depiler(Pile *p){
+    if(p->head == 0) exit(1);
+    return p->t[--p->head];
+}
+
+int pile_vide(Pile *p){
+    return p->head==0;
 }
 
 //autre fonction

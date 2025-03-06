@@ -142,12 +142,51 @@ void td2_ex5bis(){
     
     printf("APRES\n");
     imprimer_arbre_bin(racine,0);
+
+    printf("PARCOUR\n");
+    prefixe_bin_rec(racine);
+    printf("\n");
+    infixe_bin_rec(racine);
+    printf("\n");
+    postfixe_bin_rec(racine);
+    printf("\n");
+}
+
+void td2_ex7(){
+    int t[]={10,7,8,11,3,2,1,20,19,12};
+    int n=sizeof(t)/sizeof(t[0]);
+    link_bin root=tournoi(t,0,n-1);
+    imprimer_arbre_bin(root,0);
+}
+
+void td2_ex9(){
+    link_bin racine = NULL;
+
+    racine=creerNoeud_bin(50);
+    racine->g=creerNoeud_bin(40);
+    racine->d=creerNoeud_bin(60);
+    racine->g->g=creerNoeud_bin(30);
+    racine->g->g->d=creerNoeud_bin(35);
+    racine->d->g=creerNoeud_bin(55);
+    racine->d->d=creerNoeud_bin(70);
+
+    imprimer_arbre_bin(racine,0);
+
+    printf("PARCOUR\n");
+    prefixe_bin_rec(racine);
+    printf("\n");
+    prefixe_bin_iter(racine);
+    printf("\n");
+    infixe_bin_rec(racine);
+    printf("\n");
+    infixe_bin_iter(racine);
+
+
+
+
 }
 
 int main(){
-    td2_ex5bis();
-
-    
-
-    
+    td2_ex9();
+    return 0;
 }
