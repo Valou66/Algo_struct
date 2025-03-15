@@ -106,25 +106,6 @@ void td1_ex8(){
 
 void td2_ex5bis(){
     link_bin racine=NULL;
-    
-    // racine =insertion_bin(racine,8);
-    // racine =insertion_bin(racine,6);
-    // racine =insertion_bin(racine,15);
-    // racine =insertion_bin(racine,4);
-    // racine =insertion_bin(racine,7);
-    // racine =insertion_bin(racine,14);
-    // racine =insertion_bin(racine,17);
-    // racine =insertion_bin(racine,2);
-    // racine =insertion_bin(racine,5);
-    // racine =insertion_bin(racine,10);
-    // racine =insertion_bin(racine,16);
-    // racine =insertion_bin(racine,18);
-    // racine =insertion_bin(racine,1);
-    // racine =insertion_bin(racine,3);
-    // racine =insertion_bin(racine,9);
-    // racine =insertion_bin(racine,12);
-    // racine =insertion_bin(racine,11);
-    // racine =insertion_bin(racine,13);
 
     racine=creerNoeud_bin(50);
     racine->g=creerNoeud_bin(40);
@@ -173,20 +154,56 @@ void td2_ex9(){
     imprimer_arbre_bin(racine,0);
 
     printf("PARCOUR\n");
+    printf("Parcours prefixe recursif : "); 
     prefixe_bin_rec(racine);
-    printf("\n");
+    puts("");
+    printf("Parcours prefixe iteratif : ");
     prefixe_bin_iter(racine);
-    printf("\n");
+    puts("");
+    printf("Parcours infixe recursif : ");
     infixe_bin_rec(racine);
-    printf("\n");
+    puts("");
+    printf("Parcours infixe iteratif : ");
     infixe_bin_iter(racine);
+    puts("");
+    printf("Parcours postfixe recursif : ");
+    postfixe_bin_rec(racine);
+    puts("");
+    printf("Parcours postfixe iteratif : ");
+    postfixe_bin_iter(racine);
+}
 
+void td2_ex_bonus(){
+    int tab[]={INTMAX,20,18,20,10,12,7,4,9,6,3};
+    int n=sizeof(tab)/sizeof(tab[0]);
+    printf("%d \n",tester_tas(tab,n));
+}
 
+void td3_ex3(){
+    int tab[]={INTMAX,20,18,20,10,12,7,4,9,6,3};
+    int n=sizeof(tab)/sizeof(tab[0]);
+    monter_tas(tab,n,10,27);
+    for(int i = 0;i<n;i++){
+        printf("%d ",tab[i]);
+    }
+}
+
+void td3_tri(){
+    int tab[]={INTMAX,4,3,1,2,7,3,10,11};
+
+    int n=sizeof(tab)/sizeof(tab[0]);
+
+    print_tab(tab,n);
+    for(int i=n/2;i>=1;i--)
+        descendre_tas(tab,n,i);
+    print_tab(tab,n);
+    tri_par_tas(tab,n);
+    print_tab(tab,n);
 
 
 }
 
 int main(){
-    td2_ex9();
+    td3_tri();
     return 0;
 }

@@ -3,7 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
+#define INTMAX 2147483647
+
 
 //--------------------
 //-------Arbre--------
@@ -85,6 +86,8 @@ void prefixe_bin_iter(link_bin root);
 void infixe_bin_iter(link_bin root);
 void postfixe_bin_iter(link_bin root);
 
+void bfs_bin(link_bin root);
+
 
 /*
     transforme le tab t[g..d]
@@ -125,13 +128,13 @@ void infixe(int i,Noeud_gen *fils[]);
 //--------------------
 
 typedef struct File{
-    int info;
+    link_bin info;
     struct File *next;
 }File;
 
-File* enfiler(File *f,int i);
+File* enfiler(File *f,link_bin i);
 
-File* defiler(File *f ,int *r);
+File* defiler(File *f ,link_bin i);
 
 int file_vide(File *f);
 
@@ -158,4 +161,13 @@ int pile_vide(Pile *p);
 
 //Autre fonction
 int compare(int *a,int *b);
+int tester_tas(int tab[],int n);
+void monter_tas(int t[],int n,int i,int valeur);
+
+//tri par tas
+void descendre_tas(int t[],int n,int i);
+void tri_par_tas(int t[],int n);
+
+void print_tab(int t[],int n);
+
 #endif //ALGO_STRUCT_H

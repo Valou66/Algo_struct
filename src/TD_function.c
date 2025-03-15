@@ -295,22 +295,23 @@ void postfixe_bin_rec(link_bin root){
 
 void postfixe_bin_iter(link_bin root){
     if(root == NULL) return;
-    Pile p;
+    Pile p1,p2;
+    init_pile(&p1);
+    init_pile(&p2);
     link_bin courant;
-    init_pile(&p);
-    courant=root;
-    if(courant!=NULL){
-        empiler(&p,courant);
-    }
-    
-    while(!pile_vide(&p)){
-        courant=depiler(&p);
-        if(courant->d!=NULL){
-            empiler(&p,courant->d);
-        }
+    empiler(&p1,root);
+    while(!pile_vide(&p1)){
+        courant=depiler(&p1);
+        empiler(&p2,courant);
         if(courant->g!=NULL){
-            empiler(&p,courant->g);
+            empiler(&p1,courant->g);
         }
+        if(courant->d!=NULL){
+            empiler(&p1,courant->d);
+        }
+    }
+    while(!pile_vide(&p2)){
+        courant=depiler(&p2);
         printf("%d ",courant->info);
     }
 }
@@ -466,7 +467,7 @@ void infixe(int i,Noeud_gen *fils[]){
 //-------File---------
 //--------------------
 
-File* enfiler(File *f,int i){
+File* enfiler(File *f,link_bin i){
     File *tmp;
     if(f==NULL){
         f=(File*)malloc(sizeof(File));
@@ -484,8 +485,8 @@ File* enfiler(File *f,int i){
     return f;
 }
 
-File* defiler(File *f ,int *r){ // *r est un pointeur vers une variable pour stocker defiler
-    *r=f->info;
+File* defiler(File *f ,link_bin i){ // *r est un pointeur vers une variable pour stocker defiler
+    i=f->info;
     File *tmp=f;
     tmp=tmp->next;
     free(f);
@@ -533,7 +534,95 @@ int pile_vide(Pile *p){
     return p->head==0;
 }
 
+
+
 //autre fonction
 int compare(int *a,int *b){
     return *a - *b;
+}
+
+
+int tester_tas(int tab[],int n){
+    //notons que t[(n/2)+1..n]
+    for(int i=1; i<n/2; ++i){//si i=0, il se vérifie lui meme
+        if(tab[i]<tab[2*i] || tab[i]<tab[2*i+1]){
+            return 0;
+        }
+    }
+    //en faite si il y a 10 élement, c'est de 1 à 10, 0 on l'utilise pas car 2*0 = 0 donc c'est """redondant"
+    if (n%2 == 0 && tab[n/2]<tab[n]) return 0;
+    return 1;
+}
+
+void monter_tas(int t[],int n,int i,int valeur){
+    // t[1..n] un tas
+    // on augment t[i]=t[i]+valeur
+    //restructurons en un tas
+    //le papa de l'indice i = i/2
+    int x=t[i]+valeur;
+    int papa;
+    while(i>1){
+        papa=i/2;
+        if(t[papa]>=x) 
+            break;
+        t[i]=t[papa];
+        i=papa;
+    }
+    t[i]=x;
+
+}
+
+void descendre_tas(int t[],int n,int i){//i<=n/2
+    //t[1..n] un tableau d'entiers
+    //notons que t[((n/2)+1)..n] sont les feuilles d'arbres pas besoin de descendre
+    // depuis les feuilles car elles n'ont pas denfants. ajouter t[i] et descendre_tas
+    int x = t[i];
+    int j=2*i; // l'enfant gauche
+    while(j<n){
+        if(j+1<n){
+            if(t[j+1]>t[j]){
+                j=j+1;//j=l'indice d'enfants + grand
+            }
+        }
+        if(x>=t[j]) 
+            break;
+        t[i]=t[j];
+        i=j;
+        j=2*i;
+    }
+    t[i]=x;
+}
+
+void tri_par_tas(int t[],int n){
+    int temp;
+    int k = n-1;
+    for(int i=n-1;i>=1;i--){
+        temp=t[i];
+        t[i]=t[1];
+        t[1]=temp;
+        descendre_tas(t,k,1);
+        k=k-1;
+    }
+}
+
+void print_tab(int t[],int n){
+    for(int i=0;i<n;i++){
+        printf("%d ",t[i]);
+    }
+    printf("\n");
+}
+
+void bfs_bin(link_bin root){
+    if(root == NULL) return;
+    File *s=NULL;
+    link_bin x;
+    s=enfiler(s,root->info);
+    
+    while(!file_vide(s)){
+        s=defiler(s,&x);
+        printf("%d ",x->info);
+        enfiler()
+
+
+    }
 }
