@@ -13,6 +13,8 @@ link_bin creerNoeud_bin(int info){
     return temp;
 }
 
+
+
 void imprimer_arbre_bin(link_bin r,int niveau){
     //imprimer l'arbrea avec indentation niveau
     if(r!=NULL){
@@ -25,6 +27,8 @@ void imprimer_arbre_bin(link_bin r,int niveau){
         imprimer_arbre_bin(r->g,niveau+1);
     }
 }
+
+
 
 link_bin insertion_bin(link_bin racine,int info){
     if(racine==NULL){
@@ -315,6 +319,43 @@ void postfixe_bin_iter(link_bin root){
         printf("%d ",courant->info);
     }
 }
+
+
+//--------------------
+//-------Arbre--------
+//------Binaire-------
+//-----Charactère-----
+//--------------------
+
+link_bin_char creerNoeud_bin_char(char c){
+    link_bin_char temp=(link_bin_char)malloc(sizeof(Noeud_bin_char));
+    temp->c=c;
+    temp->g=temp->d=NULL;
+    return temp;
+}
+void imprimer_arbre_bin_char(link_bin_char r,int niveau){
+    //imprimer l'arbrea avec indentation niveau
+    if(r!=NULL){
+        imprimer_arbre_bin_char(r->d,niveau+1);
+        //afficher indentation niveau
+        for(int i=0;i<niveau;++i){
+            printf("   ");
+        }
+        printf("%c\n",r->c);
+        imprimer_arbre_bin_char(r->g,niveau+1);
+    }
+}
+link_bin_char parse(char *t,int *i){
+    char c=t[(*i)++];
+    link_bin_char p=creerNoeud_bin_char(c);
+
+    if(c=='+' || c=='*'){
+        p->g=parse(t,i);
+        p->d=parse(t,i);
+    }
+    return p;
+}
+
 //--------------------
 //------Tableau-------
 //------de papa-------
@@ -468,38 +509,37 @@ void infixe(int i,Noeud_gen *fils[]){
 //--------------------
 
 File* enfiler(File *f,link_bin i){
-    File *tmp;
-    if(f==NULL){
-        f=(File*)malloc(sizeof(File));
-        f->info=i;
-        f->next=NULL;
+    struct File *n=NULL,*t=f;
+    n=(struct File*)malloc(sizeof(struct File));
+    n->info=i;
+    n->next=NULL;
+
+    while(t!=NULL && t->next!=NULL){
+        t=t->next;
+    }
+
+    if(f!=NULL){
+        n->next=t->next;
+        t->next=n;
+        return f;
     }
     else{
-        tmp=f;
-        while(tmp->next!=NULL){
-            tmp=tmp->next;
-        }
-        tmp->next=(File*)malloc(sizeof(File));
-        tmp->next->info=i;
+        return n;
     }
-    return f;
 }
 
-File* defiler(File *f ,link_bin i){ // *r est un pointeur vers une variable pour stocker defiler
-    i=f->info;
-    File *tmp=f;
-    tmp=tmp->next;
-    free(f);
-    return tmp;
+void defiler(File **f,link_bin *r){
+    File *tmp=(*f)->next;
+    *r=(*f)->info;
+    free(*f);
+    *f=tmp;
 }
 
 int file_vide(File *f){
     if(f==NULL){
         return 1;
     }
-    else{
-        return 0;
-    }
+    return 0;
 }
 
 void afficher_file(File *f){
@@ -611,18 +651,27 @@ void print_tab(int t[],int n){
     }
     printf("\n");
 }
-
 void bfs_bin(link_bin root){
     if(root == NULL) return;
+    
     File *s=NULL;
     link_bin x;
-    s=enfiler(s,root->info);
+    s=enfiler(s,root);
+
     
-    while(!file_vide(s)){
-        s=defiler(s,&x);
+    while(file_vide(s)==0){
+        defiler(&s,&x);
         printf("%d ",x->info);
-        enfiler()
-
-
+        if(x->g!=NULL) s=enfiler(s,x->g);
+        if(x->d!=NULL) s=enfiler(s,x->d);
     }
+}
+
+int* remplir_random(int n){
+    int *res=(int*)malloc(n*sizeof(int));
+
+    for(int i=0;i<n;i++){
+        res[i]=rand();
+    }
+    return res;
 }

@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #define INTMAX 2147483647
 
 
@@ -18,15 +19,21 @@ typedef struct Noeud_bin{
 }Noeud_bin;
 typedef Noeud_bin* link_bin;
 
+
+
 link_bin creerNoeud_bin(int info);
 /*
     creer un noeud
 */
 
+
+
 void imprimer_arbre_bin(link_bin r,int niveau);
 /*
     afficher l'arbre binaire
 */
+
+
 
 link_bin insertion_bin(link_bin racine,int info);
 /*
@@ -95,6 +102,28 @@ void bfs_bin(link_bin root);
 */
 
 //--------------------
+//-------Arbre--------
+//------Binaire-------
+//-----Charactère-----
+//--------------------
+
+typedef struct Noeud_bin_char{
+    char c;
+    struct Noeud_bin_char *g;
+    struct Noeud_bin_char *d;
+}Noeud_bin_char;
+typedef Noeud_bin_char* link_bin_char;
+
+link_bin_char creerNoeud_bin_char(char info);
+
+void imprimer_arbre_bin_char(link_bin_char r,int niveau);
+
+link_bin_char parse(char *t,int *i);
+/*
+    afficher l'arbre binaire
+*/
+
+//--------------------
 //------Tableau-------
 //------de papa-------
 //--------------------
@@ -134,11 +163,21 @@ typedef struct File{
 
 File* enfiler(File *f,link_bin i);
 
-File* defiler(File *f ,link_bin i);
+void defiler(File **f,link_bin *r);
 
 int file_vide(File *f);
 
 void afficher_file(File *f);
+
+struct list{
+    link_bin v;
+    struct list *N;
+};
+struct _file{
+    struct list *tete,*queue;
+};
+typedef struct _file file_t;
+
 
 //--------------------
 //-------Pile---------
@@ -169,5 +208,8 @@ void descendre_tas(int t[],int n,int i);
 void tri_par_tas(int t[],int n);
 
 void print_tab(int t[],int n);
+void bfs_bin2(link_bin root);
+
+int* remplir_random(int n);
 
 #endif //ALGO_STRUCT_H

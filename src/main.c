@@ -190,7 +190,6 @@ void td3_ex3(){
 
 void td3_tri(){
     int tab[]={INTMAX,4,3,1,2,7,3,10,11};
-
     int n=sizeof(tab)/sizeof(tab[0]);
 
     print_tab(tab,n);
@@ -203,7 +202,39 @@ void td3_tri(){
 
 }
 
+void td3_trif(int n){
+    int *tab=remplir_random(n);
+    tab[0]=INTMAX;
+    //print_tab(tab,n);
+    for(int i=n/2;i>=1;i--){
+        descendre_tas(tab,n,i);
+    }
+    tri_par_tas(tab,n);
+    //print_tab(tab,n);
+}
+
+void td3_bfs(){
+    link_bin racine = NULL;
+    srand(clock());
+    int random;
+    for(int i=0;i<1000;i++){
+        random=rand()%20;
+        racine=insertion_bin(racine,random);
+    }
+
+    imprimer_arbre_bin(racine,0);
+
+    bfs_bin(racine);
+}
+
+void td3_ex10(){
+    char *t="++a*bc*+bd+ef+++*";
+    int i=0;
+    link_bin_char res=parse(t,&i);
+    imprimer_arbre_bin_char(res,0);
+}
+
 int main(){
-    td3_tri();
+    td3_ex10();
     return 0;
 }
