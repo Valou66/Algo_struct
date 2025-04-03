@@ -228,13 +228,35 @@ void td3_bfs(){
 }
 
 void td3_ex10(){
-    char *t="++a*bc*+bd+ef+++*";
+    char t[]="++a*bc*+bd+ef+++*";
     int i=0;
     link_bin_char res=parse(t,&i);
     imprimer_arbre_bin_char(res,0);
+
+    
+    link_bin_char res2=parsepost();
+    imprimer_arbre_bin_char(res2,0);
 }
 
+void td3_ex10b(){
+    char t[]="+#-a#+#$#4#2#+#^#4#3#*#4#3";
+    int i=0;
+    float alpha[26];
+    for(char c='a';c<='z';++c){
+        if(strchr(t,c)){
+            printf("%c=",c);
+            scanf("%f",&alpha[c-'a']);
+        }
+    }
+
+    printf("%f\n",alpha[0]);
+
+    printf("%f\n",eval(&i,t,alpha));
+}
+
+
+
 int main(){
-    td3_ex10();
+    td3_ex10b();
     return 0;
 }

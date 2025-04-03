@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
+#include <ctype.h>
+#include <string.h>
+
 #define INTMAX 2147483647
 
 
@@ -119,6 +123,8 @@ link_bin_char creerNoeud_bin_char(char info);
 void imprimer_arbre_bin_char(link_bin_char r,int niveau);
 
 link_bin_char parse(char *t,int *i);
+
+link_bin_char parsepost();
 /*
     afficher l'arbre binaire
 */
@@ -196,6 +202,22 @@ link_bin depiler(Pile *p);
 
 int pile_vide(Pile *p);
 
+//--------------------
+//-------Pile_char---------
+//--------------------
+
+typedef struct Pile_char{
+    link_bin_char t[2048];
+    int head;
+}Pile_char;
+
+void init_pile_char(Pile_char *p);
+
+void empiler_char(Pile_char *p,link_bin_char e);
+
+link_bin_char depiler_char(Pile_char *p);
+
+int pile_vide_char(Pile_char *p);
 
 
 //Autre fonction
@@ -211,5 +233,7 @@ void print_tab(int t[],int n);
 void bfs_bin2(link_bin root);
 
 int* remplir_random(int n);
+
+float eval(int *i,char t[],float alpha[]);
 
 #endif //ALGO_STRUCT_H

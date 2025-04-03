@@ -356,6 +356,23 @@ link_bin_char parse(char *t,int *i){
     return p;
 }
 
+link_bin_char parsepost(){
+    link_bin_char t;
+    char c;
+    Pile_char p;
+    init_pile_char(&p);
+    for(pile_vide_char(&p);scanf("%s",&c)!=EOF;){
+        t=creerNoeud_bin_char(c);
+        if(c=='+' || c=='*'){
+            t->d=depiler_char(&p);
+            t->g=depiler_char(&p);
+        }
+        empiler(&p,t);
+        
+    }
+    return t;
+}
+
 //--------------------
 //------Tableau-------
 //------de papa-------
@@ -574,6 +591,23 @@ int pile_vide(Pile *p){
     return p->head==0;
 }
 
+void init_pile_char(Pile_char *p){
+    p->head=0;
+}
+
+void empiler_char(Pile_char *p,link_bin_char e){
+    p->t[p->head]=e;
+    p->head++;
+}
+
+link_bin_char depiler_char(Pile_char *p){
+    if(p->head == 0) exit(1);
+    return p->t[--p->head];
+}
+
+int pile_vide_char(Pile_char *p){
+    return p->head==0;
+}
 
 
 //autre fonction
@@ -674,4 +708,88 @@ int* remplir_random(int n){
         res[i]=rand();
     }
     return res;
+}
+
+float eval(int *i,char t[],float alpha[]){
+    int negatif;
+    if(t[*i]=='#'){
+        (*i)=(*i)+1;
+    }
+    if(t[*i]=='+'){
+        (*i)=(*i)+1;
+        return eval(i,t,alpha)+eval(i,t,alpha);
+    }
+    if(t[*i]=='-'){
+        (*i)=(*i)+1;
+        if(t[*i]=='#'){
+            return eval(i,t,alpha)-eval(i,t,alpha);
+        }
+        else{
+            negatif=1;
+        }
+    }
+    if(t[*i]=='*'){
+        (*i)=(*i)+1;
+        return eval(i,t,alpha)*eval(i,t,alpha);
+    }
+    if(t[*i]=='/'){
+        (*i)=(*i)+1;
+        float a=eval(i,t,alpha);
+        float b=eval(i,t,alpha);
+        if(b!=0){
+            return a/b;
+        }
+    }
+    if(t[*i]=='$'){
+        (*i)=(*i)+1;
+        float a=eval(i,t,alpha);
+        float b=eval(i,t,alpha);
+        if(b!=0){
+            return fmod(a,b);
+        }
+    }
+    if(t[*i]=='^'){
+        (*i)=(*i)+1;
+        float a=eval(i,t,alpha);
+        float b=eval(i,t,alpha);
+        if(b==0){
+            return 1;
+        }
+        else if(b>0){
+            float s=1;
+            for(int j=0;j<b;j++){
+                s=s*a;
+            }
+            return s;
+        }
+        else{
+            float s=1;
+            for(int j=0;j<-b;j++){
+                s=s*a;
+            }
+            return 1/s;
+        }
+    }
+
+    float x=0;
+
+    if(isalpha(t[*i])){
+        x=alpha[t[*i]-'a'];
+    }
+    else{
+        while(t[*i]>='0' && t[*i]<='9'){
+            x=10*x+(t[*i]-'0');
+            (*i)=(*i)+1;
+        }
+        if(t[*i]=='.'){
+            float p=1;
+            while(t[*i]>='0' && t[*i]<='9'){
+                x=x+(t[*i]-'0')*(p*1/10);
+                (*i)=(*i)+1;
+                p=p*1/10;
+            }
+        }
+    }
+    if(negatif==1)return -x;
+    return x;
 }
